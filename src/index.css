@@ -1,13 +1,110 @@
-body {
+html, body, #root, .app-root {
+  height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.app-root {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  box-sizing: border-box;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Left: PDF */
+.left {
+  flex: 1 1 60%;
+  overflow: auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+}
+.page-wrap {
+  position: relative;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.15);
+  background: white;
+  overflow: visible;
+  max-width: 100%;
+  border-radius: 2px;
+}
+/* canvas */
+.pdf-canvas {
+  display: block;
+}
+
+/* invisible text layer spans */
+.textLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none; /* keep clicks on page going through if needed */
+  font-family: monospace;
+  white-space: pre;
+}
+.textItem {
+  position: absolute;
+  white-space: pre;
+  opacity: 0; /* set invisible but present for layout and bounding boxes */
+  /* remove outline when highlighted (we overlay highlight separately) */
+}
+
+/* highlight overlay rectangle */
+.pdf-highlight {
+  position: absolute;
+  background: rgba(255, 255, 0, 0.6);
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px rgba(255,255,0,0.12) inset;
+}
+
+/* Right panel */
+.right {
+  width: 420px;
+  border-left: 1px solid #eee;
+  padding-left: 12px;
+  overflow: auto;
+}
+.analysis, .findings, .supporting {
+  margin-bottom: 12px;
+}
+.ref-btn {
+  background: none;
+  border: none;
+  color: #0366d6;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 0.95rem;
+}
+.ref-btn:active { transform: translateY(1px); }
+.page-link {
+  background: none;
+  border: none;
+  color: #0366d6;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  font-size: inherit;
+}
+.page-link:hover {
+  color: #005cc5;
+}
+.page-link:active {
+  transform: translateY(1px);
+}
+.loader {
+  padding: 20px;
+  color: #666;
+  font-style: italic;
 }
